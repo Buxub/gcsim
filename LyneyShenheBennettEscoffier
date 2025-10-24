@@ -1,22 +1,14 @@
-#LyneyFurinaBennettEscoffier
-
-lyney char lvl=90/90 cons=6 talent=10,10,10;
+lyney char lvl=90/90 cons=3 talent=10,10,10;
 lyney add weapon="thefirstgreatmagic" refine=1 lvl=90/90;
 lyney add set="gladiatorsfinale" count=3;
 lyney add set="crimsonwitchofflames" count=2;
 lyney add stats def=44 hp=5288 hp%=0.088 atk=360 atk%=0.6990000000000001 er=0.194 cr=0.665 cd=1.0190000000000001 pyro%=0.466;
 
-bennett char lvl=90/90 cons=6 talent=1,8,10;
-bennett add weapon="skywardblade" refine=5 lvl=90/90;
+bennett char lvl=85/90 cons=5 talent=2,6,10;
+bennett add weapon="skywardblade" refine=1 lvl=90/90;
 bennett add set="noblesseoblige" count=4;
-bennett add stats def%=0.124 def=39.36 hp=5287.88 hp%=0.0992 atk=344.08 atk%=0.0992 er=1.0139 em=39.64 cr=0.5096 cd=0.7282 pyro%=0.466;
-
-shenhe char lvl=90/90 cons=0 talent=1,8,8;
-shenhe add weapon="favlance" refine=5 lvl=90/90;
-shenhe add set="glad" count=2; shenhe add set="sr" count=2;
-#shenhe add set="emblem" count=4;
-shenhe add stats hp=4780 atk=311 atk%=0.466 atk%=0.466 cr=0.311;
-shenhe add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.3968 er=0.1102 em=39.64 cr=0.331 cd=0.5296;
+bennett add set="wandererstroupe" count=1;
+bennett add stats def=130 hp=5527 hp%=0.81 atk=329 atk%=0.23900000000000002 er=0.92 em=40 cr=0.229 cd=0.32599999999999996;
 
 escoffier char lvl=85/90 cons=0 talent=1,8,8;
 escoffier add weapon="staffofhoma" refine=1 lvl=90/90;
@@ -24,6 +16,15 @@ escoffier add set="goldentroupe" count=4;
 escoffier add set="lavawalker" count=1;
 escoffier add stats def=37 hp=4780 hp%=0.111 atk=364 atk%=0.30300000000000005 er=0.8480000000000001 em=58 cr=0.563 cd=0.7150000000000001 cryo%=0.466;
 
+shenhe char lvl=90/90 cons=0 talent=1,8,8;
+shenhe add weapon="favoniuslance" refine=5 lvl=90/90;
+shenhe add set="gladiatorsfinale" count=2;
+shenhe add set="shimenawasreminiscence" count=3;
+shenhe add stats hp=6364 hp%=0.057999999999999996 atk=327 atk%=1.217 er=0.681 em=42 cr=0.587 cd=0.358;
+
+#LyneyFurinaBennettEscoffier
+
+#shenhe add set="emblem" count=4;
 
 options iteration=1000; 
 
@@ -35,28 +36,19 @@ energy every interval=480,720 amount=1;
 
 target lvl=100 resist=0.1 radius=2 pos=0,2.4 hp=100000000 freeze_resist=0;
 
-
 fn lyneyAim() {
 
-  if .lyney.weapon == .keys.weapon.crescent { # Attempts headshots (50%) with Crescent
-
-    lyney aim[hold=2, weakspot=rand()>0.5];
-
-  } else { # Non weakspot opponents
-
-    lyney aim[hold=2];
-
-  }
+  lyney aim[hold=2];
 }
 
 active lyney;
 
 for let i=0; i<4; i=i+1 {
-  delay(5);
+  
   if .shenhe.burst.ready && .shenhe.energy == .shenhe.energymax {
-    shenhe attack, skill, burst; 
+    shenhe attack, skill[hold=1], burst; 
   } else {
-    shenhe attack, skill; 
+    shenhe attack, skill[hold=1]; 
   }
   
   if .escoffier.burst.ready && .escoffier.energy == .escoffier.energymax {
@@ -65,9 +57,7 @@ for let i=0; i<4; i=i+1 {
     escoffier skill; 
   }
   
-  
   bennett burst, skill; # 
-  
   
   if .lyney.burst.ready && .lyney.energy == .lyney.energymax {
     lyney burst; delay(11); # to avoid canceling his burst without dealing damage
@@ -89,4 +79,6 @@ for let i=0; i<4; i=i+1 {
   
   bennett skill;
   
+  
 }
+
