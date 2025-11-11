@@ -1,27 +1,27 @@
-faru char lvl=90/90 cons=6 talent=9,9,9; 
+faru char lvl=90/90 cons=6 talent=10,10,10; 
 faru add weapon="fgm" refine=1 lvl=90/90;
 faru add set="shime" count=2;
 faru add set="glad" count=2;
-faru add stats hp=4780 atk=311 atk%=0.466 anemo%=0.466 cr=0.311; #main
+faru add stats hp=4780 atk=311 er=0.518 atk%=0.466 cr=0.311; #main
 faru add stats def%=0.124 def=39.36 hp=507.88 hp%=0.0992 atk=33.08 atk%=0.1984 er=0.1102 em=39.64 cr=0.331 cd=0.7944;
 
-xianyun char lvl=90/90 cons=1 talent=9,9,9;
+xianyun char lvl=90/90 cons=1 talent=8,8,8;
 xianyun add weapon="favcodex" lvl=90/90 refine=5;
 xianyun add set="viridescentvenerer" count=4;
-xianyun add stats hp=4780 atk=311 atk%=0.466 anemo%=0.466 cr=0.311;
+xianyun add stats hp=4780 atk=311 atk%=0.466 er=0.518 cr=0.311;
 xianyun add stats hp=1045.63 hp%=0.0408 atk=31.130001 atk%=0.2098 def=62.5 cr=0.24880001 cd=0.52849996 em=20.98 er=0.62160003;
 
-fischl char lvl=90/90 cons=6 talent=9,9,9;
+fischl char lvl=90/90 cons=6 talent=1,10,8;
 fischl add weapon="thestringless" lvl=90/90 refine=5;
 fischl add set="goldentroupe" count=4;
 fischl add stats hp=4780 atk=311 atk%=0.466 electro%=0.466 cr=0.311;
 fischl add stats hp%=0.18650001 atk=66.14 atk%=0.087400004 def=62.5 def%=0.1093 cr=0.24499999 cd=0.8858 em=86.25 er=0.15540001;
 
-furina char lvl=90/90 cons=2 talent=9,10,10;
+furina char lvl=90/90 cons=2 talent=1,10,10;
 furina add weapon="splendor" lvl=90/90 refine=1;
 furina add set="goldentroupe" count=4;
-furina add stats hp=4780 atk=311 hp%=0.466 hydro%=0.466 cr=0.311;
-furina add stats hp=866.38 hp%=0.5188 atk%=0.1923 def=16.2 cr=0.2333 cd=0.73039997 em=44.29 er=0.1749;
+furina add stats hp=4780 atk=311 hp%=0.466 er=0.518 cr=0.311;
+furina add stats hp=866.38 hp%=0.5188 atk%=0.1923 def=16.2 cr=0.2333 cd=0.73039997 em=44.29 er=0.5749;
 
 #LyneyFurinaBennettEscoffier
 
@@ -38,16 +38,17 @@ energy every interval=480,720 amount=1;
 
 target lvl=100 resist=0.1 radius=2 pos=0,2.4 hp=100000000 freeze_resist=0;
 
-
 active furina;
 
 
 for let i=0; i<4; i=i+1 {
   furina skill, attack, burst;
+  faru attack, skill, burst;
   xianyun skill:3, high_plunge, burst;
   if .xianyun.skill.ready {
     xianyun skill:3, high_plunge;
   }
+
   
   if .fischl.burst.ready && .fischl.energy == .fischl.energymax {
     fischl burst; 
@@ -55,15 +56,13 @@ for let i=0; i<4; i=i+1 {
     fischl skill; 
   }
   
+  faru aim[hold=1]:2, skill, attack;
+  
+  xianyun attack:3;
 
-  faru skill, burst;
+  faru aim[hold=1]:3;
   
-  faru aim[hold=1]:2;
   
-  xianyun attack:2;
-  
-  faru skill;
-  faru aim[hold=1]:2;
   
   
   
