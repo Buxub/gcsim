@@ -83,7 +83,8 @@ for let i=0; i<4; i=i+1 {
     
 
     lyney skill;
-    lyney burst;
+    lyney burst; delay(11);
+    lyney skill;
     lyneyAim();
     lyneyAim();
 
